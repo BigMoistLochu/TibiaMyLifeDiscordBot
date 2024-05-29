@@ -6,15 +6,21 @@ public class CommandEntity {
 
     private final String module;
     private final String command;
-    private final String[] args;
+    private List<String> args;
 
 
-    public CommandEntity(String module,String command,String... args){
+    public CommandEntity(String module,String command,List<String> args){
 
         //walnie wyjatkiem jesli cos jest zle i tyle, nawet sie nie stworzy
         this.module = module;
         this.command = command;
         this.args = args;
+    }
+
+    public CommandEntity(String module,String command){
+        //walnie wyjatkiem jesli cos jest zle i tyle, nawet sie nie stworzy
+        this.module = module;
+        this.command = command;
     }
 
     public String getModule() {
@@ -25,7 +31,9 @@ public class CommandEntity {
         return command;
     }
 
-    public String[] getArgs() {
+    public List<String> getArgs() {
         return args;
     }
+
+
 }

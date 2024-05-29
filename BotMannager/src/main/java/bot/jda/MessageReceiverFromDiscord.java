@@ -8,8 +8,7 @@ public class MessageReceiverFromDiscord extends ListenerAdapter {
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
         //     /(modul) (command) (arg…)
-        //wyslij na podany http://localhost:8080/api/v1/modul wiadomosc w contencie wyslac?
-        MessageCreatorBuilder.createMessage(event).filter();
+        CommandEntity commandEntity = MessageCreatorBuilder.createMessage(event.getMessage().getContentRaw()).filter().getCommandEntity();
 
 
         //jednoczesnie musi byc przygotowana tutaj odpowiedz,lub reakcja na wiadomosc poprawna

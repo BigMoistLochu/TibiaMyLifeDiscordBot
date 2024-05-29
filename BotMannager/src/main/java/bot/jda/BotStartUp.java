@@ -10,8 +10,5 @@ public class BotStartUp {
                 .enableIntents(GatewayIntent.GUILD_MESSAGES,GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_MEMBERS)
                 .addEventListeners(new MessageReceiverFromDiscord())
                 .build();
-
-
-
     }
 }
