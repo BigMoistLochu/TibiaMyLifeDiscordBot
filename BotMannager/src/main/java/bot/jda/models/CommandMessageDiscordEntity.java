@@ -48,7 +48,6 @@ public class CommandMessageDiscordEntity {
         if(obj == null) return false;
         if(!(obj instanceof CommandMessageDiscordEntity o)) return false;
         return this.module.equals(o.module) &&
-                this.command.equals(o.command) &&
-                this.args.equals(o.args);
+                this.command.equals(o.command) && (this.args!= null ? this.args.equals(o.args) : true);
     }
 }

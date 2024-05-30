@@ -12,10 +12,6 @@ public class MessageCreatorBuilder {
     private final String message;
     private CommandMessageDiscordEntity commandMessageDiscordEntity;
 
-    private final List<String> modules = new ArrayList<>(List.of("track","auction"));
-
-    private final List<String> commands = new ArrayList<>(List.of("buy","follow"));
-
     private MessageCreatorBuilder(String message){
         this.message = message;
     }
@@ -28,8 +24,8 @@ public class MessageCreatorBuilder {
         if(message.startsWith("/")){
             String[] partsOfMessage = message.toLowerCase().substring(1).split(" ");
             if(partsOfMessage.length >= 2){
-                if(checkAvilableModules(partsOfMessage[0])){
-                    if(checkAvilableCommandInModule(partsOfMessage[1])){
+                if(isModuleAvailable(partsOfMessage[0])){
+                    if(isCommandAvailableInModule(partsOfMessage[1])){
                         if(partsOfMessage.length>=3){
                             List<String> temporaryArray = new ArrayList<>(Arrays.asList(partsOfMessage).subList(2, partsOfMessage.length));
                             commandMessageDiscordEntity = new CommandMessageDiscordEntity(partsOfMessage[0],partsOfMessage[1],temporaryArray);
@@ -39,21 +35,21 @@ public class MessageCreatorBuilder {
                     }
                 }
             }
-        }
+        }//add else if you want get normal message
         return this;
     }
 
-    public CommandMessageDiscordEntity getCommandEntity(){
+    public CommandMessageDiscordEntity getCommandMessageDiscord(){
         return commandMessageDiscordEntity;
     }
 
 
-    private boolean checkAvilableModules(String module){
-        return modules.contains(module);
+    private boolean isModuleAvailable(String module){
+        return ModuleAndCommandContainer.hasModule(module);
     }
 
-    private boolean checkAvilableCommandInModule(String command){
-        return commands.contains(command);
+    private boolean isCommandAvailableInModule(String command){
+        return ModuleAndCommandContainer.hasCommand(command);
     }
 
 

@@ -8,7 +8,16 @@ public class MessageReceiverFromDiscord extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
-        CommandMessageDiscordEntity commandMessageDiscordEntity = MessageCreatorBuilder.createMessage(event.getMessage().getContentRaw()).filter().getCommandEntity();
+        CommandMessageDiscordEntity commandMessageDiscord = MessageCreatorBuilder.createMessage(event.getMessage().getContentRaw()).filter().getCommandMessageDiscord();
+
+        //wiemy ze istnieje modul oraz funkcja z modulu ale nie sprawdzamy argumentow
+        if(commandMessageDiscord!=null){
+            //przygotowac tutaj wykonanie odpowiedniej metody, jesli scrapp to po prostu postem dodac
+            //spakowana commandmessage musisz wyslac do odpowiedniego komandera ktory to przetworzy
+            //komander tez bedzie posiadal odpowiedz w postaci eventu
+
+        }
+
     }
 
 
