@@ -25,12 +25,12 @@ public class CommandInvoker {
         if(commandInvokeConsumer!=null) commandInvokeConsumer.accept(new CommandContext(event, chatCommand));
     }
 
-    private static class MapInitialization{
+    private static final class MapInitialization{
 
         private static MapInitialization INSTANCE = null;
-        private MapInitialization(){}
+        public MapInitialization(){}
 
-        public static MapInitialization getInstance(){
+        private static MapInitialization getInstance(){
             if(INSTANCE==null){
                 INSTANCE = new MapInitialization();
             }
@@ -40,12 +40,12 @@ public class CommandInvoker {
         private Map<String,Consumer<CommandContext>> mapInitialization(){
             Map<String,Consumer<CommandContext>> map = new HashMap<>();
             map.put("track:buy", commandContext -> commandContext.modulTrackAndCommandBuy());
+            map.put("track:sell",commandContext -> commandContext.modulTrackAndCommandSell());
             return map;
         }
 
 
     }
-
     private static class CommandContext {
         private final MessageReceivedEvent event;
         private final ChatCommand chatCommandFromInvoker;
@@ -59,6 +59,20 @@ public class CommandInvoker {
                     .flatMap(channel -> channel.sendMessage("xd"))
                     .queue();
         }
+
+        private void modulTrackAndCommandSell(){
+            event.getAuthor().openPrivateChannel()
+                    .flatMap(channel -> channel.sendMessage("xd"))
+                    .queue();
+        }
+
+
+
+        //MoveAll
+        //Ping All
+        //Inregracja webcrawlerow z botem(oddzielny mikroservis)
+        //integracja otclienta z botem
+        //modul sledzenia
     }
 
 
