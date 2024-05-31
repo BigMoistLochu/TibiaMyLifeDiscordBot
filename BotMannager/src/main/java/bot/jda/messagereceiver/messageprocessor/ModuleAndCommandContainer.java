@@ -1,4 +1,4 @@
-package bot.jda;
+package bot.jda.messagereceiver.messageprocessor;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 

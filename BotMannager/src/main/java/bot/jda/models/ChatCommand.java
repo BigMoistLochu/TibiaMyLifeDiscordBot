@@ -2,20 +2,20 @@ package bot.jda.models;
 
 import java.util.List;
 
-public class CommandMessageDiscordEntity {
+public class ChatCommand {
 
     private final String module;
     private final String command;
     private List<String> args;
 
 
-    public CommandMessageDiscordEntity(String module, String command, List<String> args){
+    public ChatCommand(String module, String command, List<String> args){
         this.module = module;
         this.command = command;
         this.args = args;
     }
 
-    public CommandMessageDiscordEntity(String module, String command){
+    public ChatCommand(String module, String command){
         this.module = module;
         this.command = command;
     }
@@ -32,6 +32,8 @@ public class CommandMessageDiscordEntity {
         return args;
     }
 
+    public String getEndpoint(){return module+":"+command;}
+
 
     @Override
     public int hashCode() {
@@ -46,7 +48,7 @@ public class CommandMessageDiscordEntity {
     public boolean equals(Object obj) {
         if(this == obj) return true;
         if(obj == null) return false;
-        if(!(obj instanceof CommandMessageDiscordEntity o)) return false;
+        if(!(obj instanceof ChatCommand o)) return false;
         return this.module.equals(o.module) &&
                 this.command.equals(o.command) && (this.args!= null ? this.args.equals(o.args) : true);
     }

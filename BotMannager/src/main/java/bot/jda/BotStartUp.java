@@ -1,5 +1,7 @@
 package bot.jda;
 
+import bot.jda.messagereceiver.MessageReceiverFromDiscord;
+import bot.jda.messagereceiver.messageprocessor.ModuleAndCommandContainer;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 

@@ -1,7 +1,7 @@
-package bot.jda;
+package bot.jda.messagereceiver.messageprocessor;
 
 
-import bot.jda.models.CommandMessageDiscordEntity;
+import bot.jda.models.ChatCommand;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,7 +10,7 @@ import java.util.List;
 public class MessageCreatorBuilder {
 
     private final String message;
-    private CommandMessageDiscordEntity commandMessageDiscordEntity;
+    private ChatCommand chatCommand;
 
     private MessageCreatorBuilder(String message){
         this.message = message;
@@ -28,9 +28,9 @@ public class MessageCreatorBuilder {
                     if(isCommandAvailableInModule(partsOfMessage[1])){
                         if(partsOfMessage.length>=3){
                             List<String> temporaryArray = new ArrayList<>(Arrays.asList(partsOfMessage).subList(2, partsOfMessage.length));
-                            commandMessageDiscordEntity = new CommandMessageDiscordEntity(partsOfMessage[0],partsOfMessage[1],temporaryArray);
+                            chatCommand = new ChatCommand(partsOfMessage[0],partsOfMessage[1],temporaryArray);
                         }else{
-                            commandMessageDiscordEntity = new CommandMessageDiscordEntity(partsOfMessage[0],partsOfMessage[1]);
+                            chatCommand = new ChatCommand(partsOfMessage[0],partsOfMessage[1]);
                         }
                     }
                 }
@@ -39,8 +39,8 @@ public class MessageCreatorBuilder {
         return this;
     }
 
-    public CommandMessageDiscordEntity getCommandMessageDiscord(){
-        return commandMessageDiscordEntity;
+    public ChatCommand getCommandMessageDiscord(){
+        return chatCommand;
     }
 
 
