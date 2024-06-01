@@ -1,6 +1,7 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.TrackedCharacter;
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -25,13 +26,18 @@ public class WebCrawlerInstance {
         return new WebCrawlerInstance(url);
     }
 
-    public TrackedCharacter scrapAndGetTrackedCharacter(){
+    /**
+     * Scrapper aktualnie dzialac bedzie na ixodus.net,gunzodus.net,ezodus.net
+     * @return
+     */
+    public void scrapAndGetTrackedCharacter(){
         //metoda1 zbierz dane o nicku
         //metoda2 zbierz dane o tym czy jest online
         //metoda3 zbierz dane o tym ile ma expa
-
-
-        return new TrackedCharacter("nickTutaj",true,123);
+        TrackedCharacterDto characterDto = new TrackedCharacterDto("ape","true","133");
+        if(characterDto!=null) {
+            characterDto.getTrackedCharacter();
+        }
     }
 
     private String getNickFromWebsite(){
