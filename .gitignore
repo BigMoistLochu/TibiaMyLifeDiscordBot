@@ -5,6 +5,8 @@ SpecialDiscordBot.iml
 #BotMannager
 BotMannager/target
 
+#WebScrapperForDiscordBotModule
 WebScrapperForDiscordBotModule/mvnw.cmd
 WebScrapperForDiscordBotModule/mvnw
 WebScrapperForDiscordBotModule/.mvn
+WebScrapperForDiscordBotModule/target
