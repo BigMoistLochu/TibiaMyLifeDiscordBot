@@ -1,5 +1,6 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
 
+import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.TrackedCharacter;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import org.jsoup.Jsoup;
@@ -15,7 +16,9 @@ public class WebCrawlerInstance {
 
     private WebCrawlerInstance(String url){
         try {
-            doc = Jsoup.connect(url).get();
+            doc = Jsoup.connect(url).timeout(5000)
+                    .userAgent("Mozilla")
+                    .get();
         }
         catch (IOException e){
             logger.warning("Bledny URL lub problem z utworzeniem Instancji WebScrappera");
@@ -31,16 +34,18 @@ public class WebCrawlerInstance {
      * @return
      */
     public void scrapAndGetTrackedCharacter(){
-        //metoda1 zbierz dane o nicku
-        //metoda2 zbierz dane o tym czy jest online
-        //metoda3 zbierz dane o tym ile ma expa
-        TrackedCharacterDto characterDto = new TrackedCharacterDto("ape","true","133");
-        if(characterDto!=null) {
-            characterDto.getTrackedCharacter();
+        try {
+            TrackedCharacterDto characterDto = new TrackedCharacterDto(getNickFromWebsite(),getIsOnlineFromWebsite(),getExperienceFromWebsite());
+            if(characterDto!=null) {
+                characterDto.getTrackedCharacter();
+            }
+        }catch (InvalidScrapingDataException dataException){
+            logger.info("Blad przy tworzeniu TrackedCharacterDto: " + dataException.getMessage());
         }
     }
 
     private String getNickFromWebsite(){
+
         return "nick";
     }
 

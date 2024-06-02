@@ -10,6 +10,8 @@ public class TrackedCharacter {
 
     private int experience;
 
+    public TrackedCharacter(){}
+
     public TrackedCharacter(String nick, boolean isOnline, int experience){
         this.nick = nick;
         this.isOnline = isOnline;

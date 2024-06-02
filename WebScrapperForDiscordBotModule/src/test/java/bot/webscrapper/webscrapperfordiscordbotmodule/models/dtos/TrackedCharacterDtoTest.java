@@ -12,4 +12,32 @@ class TrackedCharacterDtoTest {
     void creatingNewTrackedCharacterDtoShouldThrowInvalidScrapingExceptionWhenNickIsNull() {
         Assertions.assertThrows(InvalidScrapingDataException.class,()->new TrackedCharacterDto(null,"true","123"));
     }
+
+    @Test
+    void creatingNewTrackedCharacterDtoShouldThrowInvalidScrapingExceptionWhenIsOnlineIsNull() {
+        Assertions.assertThrows(InvalidScrapingDataException.class,()->new TrackedCharacterDto("nick",null,"123"));
+    }
+
+    @Test
+    void creatingNewTrackedCharacterDtoShouldThrowInvalidScrapingExceptionWhenExperienceIsNull() {
+        Assertions.assertThrows(InvalidScrapingDataException.class,()->new TrackedCharacterDto("nick","true",null));
+    }
+
+    @Test
+    void creatingNewTrackedCharacterDtoShouldThrowInvalidScrapingExceptionWhenIsOnlineIsDifferentThanTrueOrFalse() {
+        Assertions.assertThrows(InvalidScrapingDataException.class,()->new TrackedCharacterDto("nick","abc","123"));
+    }
+
+    @Test
+    void creatingNewTrackedCharacterDtoShouldThrowInvalidScrapingExceptionWhenExperienceIsNotNumeric() {
+        Assertions.assertThrows(InvalidScrapingDataException.class,()->new TrackedCharacterDto("nick","true","notNumeric"));
+    }
+
+    @Test
+    void creatingNewTrackedCharacterDtoWithGoodCredientialsShouldReturnCorrectTrackedCharacter() {
+        TrackedCharacterDto characterDto = new TrackedCharacterDto("Henry","true","2900");
+        assertEquals("Henry",characterDto.getNick());
+        assertTrue(characterDto.isOnline());
+        assertEquals(2900,characterDto.getExperience());
+    }
 }
