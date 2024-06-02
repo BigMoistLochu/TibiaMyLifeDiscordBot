@@ -11,7 +11,7 @@ public class CommandInvoker {
 
     private final MessageReceivedEvent event;
     private final ChatCommand chatCommand;
-    private final Map<String,Consumer<CommandContext>> consumerMap = MapInitialization.getInstance().mapInitialization();
+    private final Map<String,Consumer<CommandContext>> commandExecutorsMap = MapInitialization.getInstance().mapInitialization();
 
     private CommandInvoker(MessageReceivedEvent event, ChatCommand chatCommand){
         this.event = event;
@@ -21,32 +21,33 @@ public class CommandInvoker {
         return new CommandInvoker(event,commandMessageDiscord);
     }
     public void invoke(){
-        Consumer<CommandContext> commandInvokeConsumer = consumerMap.get(chatCommand.getEndpoint());
+        Consumer<CommandContext> commandInvokeConsumer = commandExecutorsMap.get(chatCommand.getEndpoint());
         if(commandInvokeConsumer!=null) commandInvokeConsumer.accept(new CommandContext(event, chatCommand));
     }
 
     private static final class MapInitialization{
 
         private static MapInitialization INSTANCE = null;
-        public MapInitialization(){}
+        private final Map<String,Consumer<CommandContext>> singletonCommandMap = new HashMap<>(Map.of(
+                "track:buy", commandContext -> commandContext.modulTrackAndCommandBuy(),
+                "track:sell",commandContext -> commandContext.modulTrackAndCommandSell()
+        ));
+        private MapInitialization(){}
 
         private static MapInitialization getInstance(){
-            if(INSTANCE==null){
+            if(INSTANCE == null){
                 INSTANCE = new MapInitialization();
             }
             return INSTANCE;
         }
 
         private Map<String,Consumer<CommandContext>> mapInitialization(){
-            Map<String,Consumer<CommandContext>> map = new HashMap<>();
-            map.put("track:buy", commandContext -> commandContext.modulTrackAndCommandBuy());
-            map.put("track:sell",commandContext -> commandContext.modulTrackAndCommandSell());
-            return map;
+            return singletonCommandMap;
         }
 
 
     }
-    private static class CommandContext {
+    private final static class CommandContext {
         private final MessageReceivedEvent event;
         private final ChatCommand chatCommandFromInvoker;
         private CommandContext(MessageReceivedEvent event, ChatCommand chatCommandFromInvoker){
