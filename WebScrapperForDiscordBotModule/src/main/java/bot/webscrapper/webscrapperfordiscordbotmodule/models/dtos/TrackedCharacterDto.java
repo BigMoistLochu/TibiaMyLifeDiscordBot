@@ -9,6 +9,7 @@ public class TrackedCharacterDto {
 
     private int experience;
 
+
     public TrackedCharacterDto(String nick, String isOnline, String experience){
         if(nick==null) throw new InvalidScrapingDataException("invalid nick data to create TrackedCharacterDto");
         if(isOnline==null || (!isOnline.equals("true") && !isOnline.equals("false")) ) throw new InvalidScrapingDataException("invalid checking online data to create TrackedCharacterDto");
@@ -22,7 +23,7 @@ public class TrackedCharacterDto {
         }
     }
     public TrackedCharacter getTrackedCharacter(){
-        return new TrackedCharacter(nick,isOnline,experience);
+        return new TrackedCharacter();
     }
 
 

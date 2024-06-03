@@ -6,5 +6,4 @@ public class WebCrawlerScheduler {
     //wlasnie?? wiadomosc ma wysylac webhookie??
 
 
-
 }

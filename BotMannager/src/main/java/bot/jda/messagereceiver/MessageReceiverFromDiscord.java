@@ -3,8 +3,11 @@ package bot.jda.messagereceiver;
 import bot.jda.messagereceiver.messageprocessor.CommandInvoker;
 import bot.jda.messagereceiver.messageprocessor.MessageCreatorBuilder;
 import bot.jda.models.ChatCommand;
+import net.dv8tion.jda.api.entities.Guild;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.List;
 
 public class MessageReceiverFromDiscord extends ListenerAdapter {
 

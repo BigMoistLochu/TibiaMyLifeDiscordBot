@@ -1,40 +1,25 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.models;
 
 
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.Setter;
 
+
+@Entity
+@Setter
+@Getter
 public class TrackedCharacter {
 
 
+    @Id
+    private Long id;
     private String nick;
-    private boolean isOnline;
-
-    private int experience;
+    private String serverDiscord;
+    private String supportServers;
 
     public TrackedCharacter(){}
 
-    public TrackedCharacter(String nick, boolean isOnline, int experience){
-        this.nick = nick;
-        this.isOnline = isOnline;
-        this.experience = experience;
-    }
-
-    public void setNick(String nick) {
-        this.nick = nick;
-    }
-
-    public boolean isOnline() {
-        return isOnline;
-    }
-
-    public void setOnline(boolean online) {
-        isOnline = online;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
-
-    public void setExperience(int experience) {
-        this.experience = experience;
-    }
 }

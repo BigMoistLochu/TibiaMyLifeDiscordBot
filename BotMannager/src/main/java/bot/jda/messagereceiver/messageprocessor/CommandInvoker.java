@@ -56,6 +56,8 @@ public class CommandInvoker {
         }
 
         private void modulTrackAndCommandBuy(){
+            //httprequest do restapi zeby zdobyc liste sledzonych postaci
+            //uderzenie z tego podulu do Webhooka
             event.getAuthor().openPrivateChannel()
                     .flatMap(channel -> channel.sendMessage("xd"))
                     .queue();

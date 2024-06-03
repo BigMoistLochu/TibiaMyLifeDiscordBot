@@ -1,11 +1,25 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.services;
 
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.TrackedCharacter;
+import bot.webscrapper.webscrapperfordiscordbotmodule.repositories.TrackedCharacterRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
 public class TrackedCharacterService {
-    //zwroc sledzone postacie dla danego servera
-    //dodaj postac do sledzenia dla danego servera
-    //usun postac do sledzenia dla danego servera
-    //sledzenie aukcji tez konfiguracja dla servera
+    private final TrackedCharacterRepository trackedCharacterRepository;
+    @Autowired
+    public TrackedCharacterService(TrackedCharacterRepository trackedCharacterRepository){
+        this.trackedCharacterRepository = trackedCharacterRepository;
+    }
+
+    public void addCharacterToDataBase(TrackedCharacter trackedCharacter){
+        trackedCharacterRepository.save(trackedCharacter);
+    }
+
+
+
+
+
+
 }
