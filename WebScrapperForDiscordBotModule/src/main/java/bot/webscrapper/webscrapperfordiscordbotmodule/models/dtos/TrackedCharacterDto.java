@@ -22,6 +22,10 @@ public class TrackedCharacterDto {
             throw new InvalidScrapingDataException("Invalid data from scrapper, experience is not number");
         }
     }
+
+    public TrackedCharacterDto(String nick){
+        this.nick = nick;
+    }
     public TrackedCharacter getTrackedCharacter(){
         return new TrackedCharacter();
     }

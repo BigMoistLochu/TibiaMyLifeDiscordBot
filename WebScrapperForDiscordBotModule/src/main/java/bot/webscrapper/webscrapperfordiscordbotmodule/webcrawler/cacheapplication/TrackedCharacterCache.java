@@ -1,18 +1,23 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cacheapplication;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.TrackedCharacter;
-import java.util.List;
-import java.util.Map;
+import bot.webscrapper.webscrapperfordiscordbotmodule.services.TrackedCharacterService;
+import lombok.Getter;
+
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 public final class TrackedCharacterCache {
 
     private static TrackedCharacterCache INSTANCE = null;
+
     private final Map<String,List<TrackedCharacter>> trackedCharactersMapByCategoryAndServer = new ConcurrentHashMap<>();
 
-    private TrackedCharacterCache(){}
-
+    private final Map<String,TrackedCharacter> webScrapperMap = new ConcurrentHashMap<>();
+    private final TrackedCharacterService trackedCharacterService = MyServiceInjector.getBean(TrackedCharacterService.class);
+    private final Logger logger = Logger.getLogger(TrackedCharacterCache.class.getName());
     public synchronized static TrackedCharacterCache getINSTANCE(){
         if(INSTANCE==null){
             INSTANCE = new TrackedCharacterCache();
@@ -20,23 +25,33 @@ public final class TrackedCharacterCache {
         return INSTANCE;
     }
 
-    public TrackedCharacterCache uploadTrackedCharacter(String serverDiscord,TrackedCharacter character){
-        if(!trackedCharactersMapByCategoryAndServer.containsKey(serverDiscord)){
-            trackedCharactersMapByCategoryAndServer.put(serverDiscord,new CopyOnWriteArrayList<>());
+    /**
+     * Ta metoda bedzie uzywana zeby zaciagac configuracje z bazy danych ktora jest niezalezna od stanu i pamieci aplikacji
+     * bedzie wywolywana przez schedulera.
+     * Opis jak dziala:
+     * Zaciagana jest lista z TrackedCharacters z serwisu->Wyciagamy Liste serverow->Nadpisujemy Liste ktora jest
+     * w Pamieci aplikacji by zaktualizowac configuracje jesli jakis uzytkownik dokonal zmian
+     */
+    public void upLoadTrackedCharactersFromDataBaseIntoList(){
+        Set<String> servers = new HashSet<>();
+        List<TrackedCharacter> upLoadedListFromDataBase= trackedCharacterService.getAllTrackedCharacters();
+        upLoadedListFromDataBase
+                .forEach((trackedCharacter -> servers.add(trackedCharacter.getServerDiscord())));
+
+        for(String server: servers){
+            if(!trackedCharactersMapByCategoryAndServer.containsKey(server))
+                trackedCharactersMapByCategoryAndServer.computeIfAbsent(server,(createNewList)-> new ArrayList<>());
+
+            List<TrackedCharacter> list = upLoadedListFromDataBase.stream()
+                    .filter(trackedCharacter -> trackedCharacter.getServerDiscord().equals(server))
+                    .toList();
+
+            trackedCharactersMapByCategoryAndServer.put(server,list);
         }
-        //a co sie stanie jak bot padnie?? hmm?
-        //cala konfiguracja powinna znajdowac sie bazie danych
-        List<TrackedCharacter> containedCharacters = trackedCharactersMapByCategoryAndServer.get(serverDiscord);
-        if(containedCharacters.contains(character)){
-            containedCharacters.remove(character);
-        }
-        return this;
     }
 
-
-
-
-
-
-
+    public TrackedCharacterCache uploadTrackedCharacter(String serverDiscord,TrackedCharacter character){
+        trackedCharacterService.getAllTrackedCharacters();
+        return this;
+    }
 }

@@ -3,6 +3,12 @@ package bot.jda.messagereceiver.messageprocessor;
 import bot.jda.models.ChatCommand;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.http.HttpClient;
+import java.net.http.HttpRequest;
+import java.net.http.HttpResponse;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -29,7 +35,7 @@ public class CommandInvoker {
 
         private static MapInitialization INSTANCE = null;
         private final Map<String,Consumer<CommandContext>> singletonCommandMap = new HashMap<>(Map.of(
-                "track:buy", commandContext -> commandContext.modulTrackAndCommandBuy(),
+                "track:add", commandContext -> commandContext.modulTrackAndCommandAdd(),
                 "track:sell",commandContext -> commandContext.modulTrackAndCommandSell()
         ));
         private MapInitialization(){}
@@ -55,12 +61,30 @@ public class CommandInvoker {
             this.chatCommandFromInvoker = chatCommandFromInvoker;
         }
 
-        private void modulTrackAndCommandBuy(){
+        private void modulTrackAndCommandAdd(){
             //httprequest do restapi zeby zdobyc liste sledzonych postaci
             //uderzenie z tego podulu do Webhooka
-            event.getAuthor().openPrivateChannel()
-                    .flatMap(channel -> channel.sendMessage("xd"))
-                    .queue();
+            try {
+                // Tworzenie obiektu HttpClient
+                HttpClient client = HttpClient.newHttpClient();
+                HttpRequest request = HttpRequest.newBuilder()
+                        .uri(new URI("http://localhost:8080/api/v1/track/apeDiscord/ixodus/zmiekczacz"))
+                        .POST(HttpRequest.BodyPublishers.noBody())
+                        .build();
+
+                HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+
+                event.getAuthor().openPrivateChannel()
+                        .flatMap(channel -> channel.sendMessage(Integer.toString(response.statusCode())))
+                        .queue();
+            }catch (URISyntaxException e){
+                System.out.println("blad z uri i wyslaniem http requesta do api");
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                System.out.println("walnelo od clienta cos");
+            }
+
         }
 
         private void modulTrackAndCommandSell(){

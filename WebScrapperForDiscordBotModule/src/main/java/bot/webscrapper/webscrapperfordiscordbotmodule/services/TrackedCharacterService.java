@@ -5,6 +5,8 @@ import bot.webscrapper.webscrapperfordiscordbotmodule.repositories.TrackedCharac
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TrackedCharacterService {
     private final TrackedCharacterRepository trackedCharacterRepository;
@@ -18,8 +20,8 @@ public class TrackedCharacterService {
     }
 
 
-
-
-
+    public List<TrackedCharacter> getAllTrackedCharacters(){
+        return (List<TrackedCharacter>) trackedCharacterRepository.findAll();
+    }
 
 }

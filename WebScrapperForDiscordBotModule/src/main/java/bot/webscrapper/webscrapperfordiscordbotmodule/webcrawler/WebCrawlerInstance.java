@@ -14,8 +14,6 @@ public class WebCrawlerInstance {
     private Document doc;
     private Logger logger = Logger.getLogger(WebCrawlerInstance.class.getName());
 
-    //zrobimy mape linkow do scrappowania np gunz/ezo/ixo i wtedy wyciagniemy
-
     private WebCrawlerInstance(String url){
         try {
             doc = Jsoup.connect(url).timeout(5000)
@@ -39,7 +37,7 @@ public class WebCrawlerInstance {
         try {
             TrackedCharacterDto characterDto = new TrackedCharacterDto(getNickFromWebsite(),getIsOnlineFromWebsite(),getExperienceFromWebsite());
             if(characterDto!=null) {
-                characterDto.getTrackedCharacter();
+
             }
         }catch (InvalidScrapingDataException dataException){
             logger.info("Blad przy tworzeniu TrackedCharacterDto: " + dataException.getMessage());
