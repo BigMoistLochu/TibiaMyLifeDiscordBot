@@ -10,3 +10,9 @@ WebScrapperForDiscordBotModule/mvnw.cmd
 WebScrapperForDiscordBotModule/mvnw
 WebScrapperForDiscordBotModule/.mvn
 WebScrapperForDiscordBotModule/target
+
+#ConfigurationForDiscordServersModule
+ConfigurationForDiscordServersModule/.mvn
+ConfigurationForDiscordServersModule/mvnw.cmd
+ConfigurationForDiscordServersModule/mvnw
+ConfigurationForDiscordServersModule/target

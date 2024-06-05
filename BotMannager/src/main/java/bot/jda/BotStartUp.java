@@ -1,7 +1,6 @@
 package bot.jda;
 
 import bot.jda.messagereceiver.MessageReceiverFromDiscord;
-import bot.jda.messagereceiver.messageprocessor.ModuleAndCommandContainer;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.requests.GatewayIntent;
 
@@ -13,21 +12,16 @@ public class BotStartUp {
 
     private static final Logger logger = Logger.getLogger(BotStartUp.class.getName());
     public static void main(String[] args){
-
-
         try {
-            ModuleAndCommandContainer.loadToMemoryAndCreateMapFromJsonFile("BotMannager/modules.json");
+            ModuleAndCommandLoader.loadToMemoryAndCreateMapFromJsonFile("BotMannager/modules.json");
         }catch (IOException e){
             logger.info("Nie udalo sie zaladowac pliku json do pamieci");
         }
-
 
         //start websocket on all server discord
        JDABuilder.createLight(System.getenv("Discord_Token"))
                 .enableIntents(GatewayIntent.GUILD_MESSAGES,GatewayIntent.MESSAGE_CONTENT,GatewayIntent.GUILD_MEMBERS)
                 .addEventListeners(new MessageReceiverFromDiscord())
                 .build();
-
-
     }
 }

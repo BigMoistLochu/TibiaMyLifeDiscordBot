@@ -1,6 +1,7 @@
 package bot.jda.messagereceiver.messageprocessor;
 
 
+import bot.jda.ModuleAndCommandLoader;
 import bot.jda.models.ChatCommand;
 
 import java.util.ArrayList;
@@ -45,11 +46,11 @@ public class MessageCreatorBuilder {
 
 
     private boolean isModuleAvailable(String module){
-        return ModuleAndCommandContainer.hasModule(module);
+        return ModuleAndCommandLoader.hasModule(module);
     }
 
     private boolean isCommandAvailableInModule(String command){
-        return ModuleAndCommandContainer.hasCommand(command);
+        return ModuleAndCommandLoader.hasCommand(command);
     }
 
 

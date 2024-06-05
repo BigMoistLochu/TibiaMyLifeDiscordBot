@@ -1,7 +1,6 @@
 package bot.jda;
 
 import bot.jda.messagereceiver.messageprocessor.MessageCreatorBuilder;
-import bot.jda.messagereceiver.messageprocessor.ModuleAndCommandContainer;
 import bot.jda.models.ChatCommand;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -15,7 +14,7 @@ class MessageCreatorBuilderTest {
 
     @BeforeAll
     static void bef() throws IOException {
-        ModuleAndCommandContainer.loadToMemoryAndCreateMapFromJsonFile("modules.json");
+        ModuleAndCommandLoader.loadToMemoryAndCreateMapFromJsonFile("modules.json");
     }
 
     @Test

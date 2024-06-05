@@ -8,5 +8,8 @@
   "auction": [
     "buy",
     "sell"
+  ],
+  "configuration": [
+    "setwebhook"
   ]
 }

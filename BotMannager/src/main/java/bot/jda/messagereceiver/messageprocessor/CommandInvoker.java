@@ -36,7 +36,8 @@ public class CommandInvoker {
         private static MapInitialization INSTANCE = null;
         private final Map<String,Consumer<CommandContext>> singletonCommandMap = new HashMap<>(Map.of(
                 "track:add", commandContext -> commandContext.modulTrackAndCommandAdd(),
-                "track:sell",commandContext -> commandContext.modulTrackAndCommandSell()
+                "track:sell",commandContext -> commandContext.modulTrackAndCommandSell(),
+                "configuration:setwebhook",commandContext -> commandContext.modulConfigurationAndCommandSetWebHook()
         ));
         private MapInitialization(){}
 
@@ -91,6 +92,10 @@ public class CommandInvoker {
             event.getAuthor().openPrivateChannel()
                     .flatMap(channel -> channel.sendMessage("xd"))
                     .queue();
+        }
+
+        private void modulConfigurationAndCommandSetWebHook(){
+
         }
 
 

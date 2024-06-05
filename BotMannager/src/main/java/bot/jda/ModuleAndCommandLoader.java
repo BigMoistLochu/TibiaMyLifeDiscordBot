@@ -1,4 +1,4 @@
-package bot.jda.messagereceiver.messageprocessor;
+package bot.jda;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -9,12 +9,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 
-public final class ModuleAndCommandContainer {
+public final class ModuleAndCommandLoader {
 
     private static Map<String, List<String> > commandContainer;
-    private static final Logger logger = Logger.getLogger(ModuleAndCommandContainer.class.getName());
+    private static final Logger logger = Logger.getLogger(ModuleAndCommandLoader.class.getName());
 
-    private ModuleAndCommandContainer(){}
+    private ModuleAndCommandLoader(){}
     public static void loadToMemoryAndCreateMapFromJsonFile(String path) throws IOException {
         ObjectMapper objectMapper = new ObjectMapper();
         if(commandContainer==null){
