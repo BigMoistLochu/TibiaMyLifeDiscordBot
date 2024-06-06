@@ -1,8 +1,10 @@
 package bot.jda.messagereceiver.messageprocessor;
 
 import bot.jda.models.ChatCommand;
+import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 
+import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
