@@ -1,15 +1,21 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
-import bot.webscrapper.webscrapperfordiscordbotmodule.models.TrackedCharacter;
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
+import lombok.Getter;
+import lombok.Setter;
 
+@Setter
+@Getter
 public class TrackedCharacterDto {
     private String nick;
+    private SupportServers supportServers;
     private boolean isOnline;
-
     private int experience;
 
-
+    public TrackedCharacterDto(String nick){
+        this.nick = nick;
+    }
     public TrackedCharacterDto(String nick, String isOnline, String experience){
         if(nick==null) throw new InvalidScrapingDataException("invalid nick data to create TrackedCharacterDto");
         if(isOnline==null || (!isOnline.equals("true") && !isOnline.equals("false")) ) throw new InvalidScrapingDataException("invalid checking online data to create TrackedCharacterDto");
@@ -23,23 +29,4 @@ public class TrackedCharacterDto {
         }
     }
 
-    public TrackedCharacterDto(String nick){
-        this.nick = nick;
-    }
-    public TrackedCharacter getTrackedCharacter(){
-        return new TrackedCharacter();
-    }
-
-
-    public String getNick() {
-        return nick;
-    }
-
-    public boolean isOnline() {
-        return isOnline;
-    }
-
-    public int getExperience() {
-        return experience;
-    }
 }

@@ -14,6 +14,9 @@ public class DiscordServer {
 
     private String serverName;
     private String webHookUrl;
+
+    public DiscordServer(){}
+
     public Long getId() {
         return id;
     }

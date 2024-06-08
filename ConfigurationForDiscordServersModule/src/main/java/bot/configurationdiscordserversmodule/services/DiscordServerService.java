@@ -18,6 +18,7 @@ public class DiscordServerService {
         this.discordServerRepository = discordServerRepository;
     }
 
+
     public DiscordServer getServerDiscordByName(String serverName){
         if (serverName == null || serverName.isEmpty()) {
             throw new IllegalArgumentException("Server name must not be null or empty");

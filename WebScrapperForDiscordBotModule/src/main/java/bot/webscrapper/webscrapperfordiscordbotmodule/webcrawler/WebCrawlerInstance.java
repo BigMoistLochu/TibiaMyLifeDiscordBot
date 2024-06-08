@@ -2,6 +2,7 @@ package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -62,6 +63,13 @@ public class WebCrawlerInstance {
         return element.text();
     }
 
+    private SupportServers getSupportServerFromUrl(String url){
+        //convert url to support server like:
+        //https://www.gunzodus.net/character/show/Pupik -> SupportServers.GUNZODUS;
+        //https://www.ixodus.net/character/show/Zmiekczacz -> SupportServers.Ixodus;
+        //https://realera.org/community/characters/enemy-oz -> SupportServers.Realera;
+        return SupportServers.GUNZODUS;
+    }
 
 
 
