@@ -12,26 +12,20 @@ public class DiscordServer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String serverDomain;
+    private String serverName;
     private String webHookUrl;
-
-
     public Long getId() {
         return id;
     }
-
-    public String getServerDomain() {
-        return serverDomain;
+    public String getServerName() {
+        return serverName;
     }
-
-    public void setServerDomain(String serverName) {
-        this.serverDomain = serverName;
+    public void setServerName(String serverName) {
+        this.serverName = serverName;
     }
-
     public String getWebHookUrl() {
         return webHookUrl;
     }
-
     public void setWebHookUrl(String webHookUrl) {
         this.webHookUrl = webHookUrl;
     }

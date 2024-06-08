@@ -1,5 +1,7 @@
 package bot.configurationdiscordserversmodule.endpoints;
 
+import bot.configurationdiscordserversmodule.exceptions.ErrorResponse;
+import bot.configurationdiscordserversmodule.exceptions.ServerAlreadyExistsException;
 import bot.configurationdiscordserversmodule.models.DiscordServer;
 import bot.configurationdiscordserversmodule.services.DiscordServerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,32 +19,22 @@ public class DiscordServerRestController {
     public DiscordServerRestController(DiscordServerService discordServerService) {
         this.discordServerService = discordServerService;
     }
-
     @PostMapping("/init/{serverName}")
     public ResponseEntity<DiscordServer> createServerDiscord(@PathVariable String serverName) {
-        try {
-            DiscordServer discordServer = discordServerService.createServerDiscord(serverName);
-            return ResponseEntity.status(HttpStatus.CREATED).body(discordServer);
-        } catch (IllegalArgumentException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+        DiscordServer discordServer = discordServerService.createServerDiscord(serverName);
+        return ResponseEntity.status(HttpStatus.CREATED).body(discordServer);
     }
 
     @PostMapping("/set/webhook/{channel}")
     public String setWebHookDiscord(@PathVariable String channel){
         return "hello";
     }
-
     @PostMapping("/update/webhook/{channel}")
     public String updateWebHookDiscord(@PathVariable String channel){
         return "hello";
     }
-
     @PostMapping("/remove/webhook")
     public String removeWebHookDiscord(){
         return "hello";
     }
-
-
-
 }

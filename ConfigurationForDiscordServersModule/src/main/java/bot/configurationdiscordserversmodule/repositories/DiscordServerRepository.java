@@ -6,4 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface DiscordServerRepository extends CrudRepository<DiscordServer,Long> {
+    boolean existsDiscordServerByServerName(String serverName);
 }
