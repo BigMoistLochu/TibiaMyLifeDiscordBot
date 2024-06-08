@@ -9,6 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/api/v1/configuration")
 public class DiscordServerRestController {
@@ -25,16 +27,23 @@ public class DiscordServerRestController {
         return ResponseEntity.status(HttpStatus.CREATED).body(discordServer);
     }
 
-    @PostMapping("/set/webhook/{channel}")
-    public String setWebHookDiscord(@PathVariable String channel){
-        return "hello";
+    @GetMapping("/get/server/{serverName}")
+    public ResponseEntity<DiscordServer> getServerDiscord(@PathVariable String serverName){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(discordServerService.getServerDiscordByName(serverName));
     }
-    @PostMapping("/update/webhook/{channel}")
-    public String updateWebHookDiscord(@PathVariable String channel){
-        return "hello";
+    @GetMapping("/get/server/all")
+    public ResponseEntity<List<DiscordServer>> getALlServersDiscord(){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(discordServerService.getAllServerDiscord());
     }
-    @PostMapping("/remove/webhook")
-    public String removeWebHookDiscord(){
-        return "hello";
+    @PatchMapping("/webhook/set/{serverName}")
+    public ResponseEntity<DiscordServer> setWebHookDiscord(@PathVariable String serverName,@RequestParam("webhookurl") String webhookUrl){
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(discordServerService.setWebHookOnDiscordServer(serverName,webhookUrl));
+    }
+    @PatchMapping("/webhook/remove/{serverName}")
+    public ResponseEntity<DiscordServer> removeWebHookDiscord(@PathVariable String serverName){
+        return ResponseEntity.status(HttpStatus.OK).body(discordServerService.removeWebHookOnDiscordServer(serverName));
     }
 }
