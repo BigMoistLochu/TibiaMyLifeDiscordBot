@@ -1,4 +1,4 @@
-package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
+package bot.webscrapper.webscrapperfordiscordbotmodule.scheduler;
 
 public class WebCrawlerScheduler {
 

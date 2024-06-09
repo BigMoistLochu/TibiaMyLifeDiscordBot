@@ -18,13 +18,14 @@ public class TrackedCharacterService {
         this.trackedCharacterRepository = trackedCharacterRepository;
     }
 
-    public void addCharacterToDataBase(TrackedCharacter trackedCharacter){
-        trackedCharacterRepository.save(trackedCharacter);
+    public void synchronizeWebCrawlerCacheData(){
+        List<TrackedCharacter> trackedCharacters = (List<TrackedCharacter>) trackedCharacterRepository.findAll();
+        if(!trackedCharacters.isEmpty()) cacheWebCrawlerApplication.refreshMapWithDatabaseData(trackedCharacters);
     }
 
 
-    public List<TrackedCharacter> getAllTrackedCharacters(){
-        return (List<TrackedCharacter>) trackedCharacterRepository.findAll();
-    }
-
+    //funkcja ktora zaciaga TrackedCharacters
+    //oraz Zaciaga mape z Cache,
+    //i zaciaga Liste trackedDto ktore maja taki sam nick jak TrackedCharacters
+    //wybieramy server i sprawdzamy webhooka i na ten weebhook wysylamy liste sledzonych postaci
 }

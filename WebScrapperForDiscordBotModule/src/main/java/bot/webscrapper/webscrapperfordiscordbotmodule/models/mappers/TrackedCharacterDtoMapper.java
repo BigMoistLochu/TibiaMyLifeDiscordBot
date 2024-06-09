@@ -6,7 +6,10 @@ import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharact
 public class TrackedCharacterDtoMapper {
 
     public static TrackedCharacterDto mapTrackedCharacterToDto(TrackedCharacter character){
-        return new TrackedCharacterDto(character.getNick());
+        TrackedCharacterDto dto = new TrackedCharacterDto();
+        dto.setNick(character.getNick());
+        dto.setSupportServers(character.getSupportServers());
+        return dto;
     }
 
 
