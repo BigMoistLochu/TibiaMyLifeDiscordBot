@@ -22,13 +22,30 @@ public final class CacheWebCrawlerApplication {
         }
         return INSTANCE;
     }
+    /**
+     * Odświeża mapę danymi z bazy danych.Funkcja jest uzywana tylko dla RefreshMapWithDatabaseDataScheduler
+     *
+     * @param trackedCharacterList Lista postaci do odświeżenia mapy.
+     */
+    public void refreshMapWithDatabaseData(List<TrackedCharacter> trackedCharacterList){
+        List<TrackedCharacterDto> dtoList = TrackedCharacterDtoMapper.mapToDtoList(trackedCharacterList);
 
-    public TrackedCharacterDto getTrackedCharacterDtoByNick(String nick){
-        if(!webScrapperMap.containsKey(nick)) throw new IllegalArgumentException();
-        return webScrapperMap.get(nick);
+        dtoList.forEach(trackedCharacterDto -> addCharacterToMap(trackedCharacterDto));
+
+        List<String> nickList = new ArrayList<>();
+        dtoList.forEach(trackedCharacterDto -> {
+            if (!nickList.contains(trackedCharacterDto.getNick())) {
+                nickList.add(trackedCharacterDto.getNick());
+            }
+        });
+
+        webScrapperMap.forEach((key, trackedCharacterDto) -> {
+            if(!nickList.contains(key)){
+                webScrapperMap.remove(key);
+                logger.info("Uzytkownik o nicku: "+trackedCharacterDto.getNick()+" zostal usuniety z cache application");
+            }
+        });
     }
-    //potrzeba nam funkcje dla CrawleraKtory bedzie aktualizowal
-
 
     /**
      * Dodaje postać do mapy, jeśli nie istnieje, i loguje operację.
@@ -36,20 +53,12 @@ public final class CacheWebCrawlerApplication {
      * @param trackedCharacterDto DTO postaci do dodania.
      */
     public void addCharacterToMap(TrackedCharacterDto trackedCharacterDto){
-        TrackedCharacterDto dto = webScrapperMap.putIfAbsent(trackedCharacterDto.getNick(),trackedCharacterDto);
-        if(dto!=null) logger.info("Dodano postac do mapy o nicku: "+trackedCharacterDto.getNick());
+        if(!webScrapperMap.containsKey(trackedCharacterDto.getNick())){
+            webScrapperMap.put(trackedCharacterDto.getNick(),trackedCharacterDto);
+            logger.info("Dodano postac do cache aplikacji o nicku: "+ trackedCharacterDto.getNick());
+        }
     }
-
-    /**
-     * Odświeża mapę danymi z bazy danych.Funkcja jest uzywana tylko dla RefreshMapWithDatabaseDataScheduler
-     *
-     * @param trackedCharacterList Lista postaci do odświeżenia mapy.
-     */
-    public void refreshMapWithDatabaseData(List<TrackedCharacter> trackedCharacterList){
-        trackedCharacterList.stream()
-                .map(trackedCharacter -> TrackedCharacterDtoMapper.mapTrackedCharacterToDto(trackedCharacter))
-                .forEach(trackedCharacterDto -> addCharacterToMap(trackedCharacterDto));
-    }
+    //funkcja do aktualizowania postaci wzgledem expa, i czy jest online nie wyrzucajac
 
 
 

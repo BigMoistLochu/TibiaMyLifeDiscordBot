@@ -11,8 +11,6 @@ import lombok.Setter;
 @Setter
 @Getter
 public class TrackedCharacter {
-
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,9 +22,14 @@ public class TrackedCharacter {
     @JoinColumn(name = "discord_server_id", referencedColumnName = "id")
     private DiscordServer discordServer;
     public TrackedCharacter(){}
-    public TrackedCharacter(String nick,SupportServers supportServers, DiscordServer discordServer){
+    public TrackedCharacter(String nick, SupportServers supportServers) {
+        this.nick = nick;
+        this.supportServers = supportServers;
+    }
+    public TrackedCharacter(String nick, SupportServers supportServers, DiscordServer discordServer){
         this.nick = nick;
         this.supportServers = supportServers;
         this.discordServer = discordServer;
     }
+
 }

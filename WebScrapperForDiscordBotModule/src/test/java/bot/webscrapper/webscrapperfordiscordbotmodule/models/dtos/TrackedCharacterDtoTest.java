@@ -1,6 +1,7 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
@@ -39,5 +40,13 @@ class TrackedCharacterDtoTest {
         assertEquals("Henry",characterDto.getNick());
         assertTrue(characterDto.isOnline());
         assertEquals(2900,characterDto.getExperience());
+    }
+
+    @Test
+    void creatingNewTrackedCharacterDtoWithNickAndServerShouldReturnSameHashAndEqualMethodOnSameObject(){
+        TrackedCharacterDto characterDto = new TrackedCharacterDto("Dzj", SupportServers.GUNZODUS);
+        TrackedCharacterDto differentCharacterDto = new TrackedCharacterDto("Dzj",SupportServers.GUNZODUS);
+        assertEquals(differentCharacterDto,characterDto);
+        assertEquals(differentCharacterDto.hashCode(),characterDto.hashCode());
     }
 }

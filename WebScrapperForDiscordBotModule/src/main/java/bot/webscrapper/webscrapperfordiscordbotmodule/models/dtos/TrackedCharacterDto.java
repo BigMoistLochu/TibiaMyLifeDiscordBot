@@ -18,8 +18,10 @@ public class TrackedCharacterDto {
     public TrackedCharacterDto(String nick){
         this.nick = nick;
     }
-
-
+    public TrackedCharacterDto(String nick,SupportServers supportServers){
+        this.nick = nick;
+        this.supportServers = supportServers;
+    }
     /**
      * Ten konstruktor jest dla WebCrawlerInstance by nie mogl stworzyc obiektu
      * i przechowywac go w pamieci jak scrapper polegnie na jakims polu
@@ -40,4 +42,24 @@ public class TrackedCharacterDto {
         }
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 31 * hash + (nick == null ? 0 : nick.hashCode());
+        hash = 31 * hash + (isOnline == false ? 0 : 1);
+        hash = 31 * hash + (supportServers == null ? 0 : supportServers.hashCode());
+        hash = 31 * hash + experience;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if(obj==null) return false;
+        if(this==obj) return true;
+        if(!(obj instanceof TrackedCharacterDto o)) return false;
+        return this.nick.equals(o.nick) &&
+                this.isOnline == o.isOnline &&
+                this.supportServers.equals(o.supportServers) &&
+                this.experience == o.experience;
+    }
 }
