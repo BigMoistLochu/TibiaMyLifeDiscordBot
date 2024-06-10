@@ -29,10 +29,5 @@ public class WebScrapperForDiscordBotModuleApplication implements CommandLineRun
 
     @Override
     public void run(String... args) throws Exception {
-        service.synchronizeWebCrawlerCacheData();
-        service.synchronizeWebCrawlerCacheData();
-        service.synchronizeWebCrawlerCacheData();
-        service.synchronizeWebCrawlerCacheData();
-        service.synchronizeWebCrawlerCacheData();
     }
 }

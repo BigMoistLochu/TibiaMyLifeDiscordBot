@@ -48,6 +48,28 @@ class CacheWebCrawlerApplicationTest {
         assertTrue(fakeWebScrapperMap.containsKey("Jefrey"));
         assertTrue(fakeWebScrapperMap.containsKey("Jenny"));
         assertEquals(2,fakeWebScrapperMap.size());
-
     }
+    @Test
+    void shouldUpdateCharacterInWebMap(){
+
+        //Given
+        cacheWebCrawlerApplication.getWebScrapperMap()
+                .put("Web",new TrackedCharacterDto("Web",SupportServers.GUNZODUS));
+        cacheWebCrawlerApplication.getWebScrapperMap()
+                .put("Abua",new TrackedCharacterDto("Abua", SupportServers.IXODUS));
+        //when
+        TrackedCharacterDto characterAfterUpdate = cacheWebCrawlerApplication.updateCharacterInWebMap(new TrackedCharacterDto("Web","true","100"));
+        //then
+        assertNotNull(characterAfterUpdate, "Updated character should not be null");
+        assertEquals(2, cacheWebCrawlerApplication.getWebScrapperMap().size(), "Map size should remain 2");
+        assertEquals(characterAfterUpdate, cacheWebCrawlerApplication.getWebScrapperMap().get("Web"),
+                "Updated character should match the character in the map");
+        assertEquals("Web", characterAfterUpdate.getNick(), "Character nick should be 'Web'");
+        assertEquals(SupportServers.GUNZODUS, characterAfterUpdate.getSupportServers(),
+                "Character server should be 'GUNZODUS'");
+        assertTrue(characterAfterUpdate.isExp(), "Character exp should be true");
+        assertTrue(characterAfterUpdate.isOnline(), "Character online should be true");
+    }
+
+
 }

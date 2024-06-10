@@ -58,7 +58,17 @@ public final class CacheWebCrawlerApplication {
             logger.info("Dodano postac do cache aplikacji o nicku: "+ trackedCharacterDto.getNick());
         }
     }
-    //funkcja do aktualizowania postaci wzgledem expa, i czy jest online nie wyrzucajac
+    public TrackedCharacterDto updateCharacterInWebMap(TrackedCharacterDto scrapedCharacterDto){
+        TrackedCharacterDto existingCharacterDto = webScrapperMap.get(scrapedCharacterDto.getNick());
+        if(existingCharacterDto==null) return null;
+        existingCharacterDto.setOnline(scrapedCharacterDto.isOnline());
+        existingCharacterDto.setExp(calculateExperience(existingCharacterDto.getExperience(),scrapedCharacterDto.getExperience()));
+        existingCharacterDto.setExperience(scrapedCharacterDto.getExperience());
+        return webScrapperMap.put(existingCharacterDto.getNick(),existingCharacterDto);
+    }
+    public boolean calculateExperience(int actualExp,int scrappedExp){
+        return Math.abs(actualExp - scrappedExp) > actualExp;
+    }
 
 
 

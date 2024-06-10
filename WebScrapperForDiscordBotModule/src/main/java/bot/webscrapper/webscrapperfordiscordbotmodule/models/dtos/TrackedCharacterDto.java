@@ -13,6 +13,7 @@ public class TrackedCharacterDto {
     private String nick;
     private SupportServers supportServers;
     private boolean isOnline;
+    private boolean isExp;
     private int experience;
 
     public TrackedCharacterDto(String nick){
