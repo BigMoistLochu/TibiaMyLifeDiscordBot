@@ -36,22 +36,26 @@ class CacheWebCrawlerApplicationTest {
 
     @Test
     void fakeWebScrapperMapShouldContain2TrackedCharacterDtoAfterInvokeTwoTimes() {
+        //given
         List<TrackedCharacter> firstListToPut = new ArrayList<>(List.of(new TrackedCharacter("Jefrey", SupportServers.GUNZODUS),
                 new TrackedCharacter("Jefrey", SupportServers.GUNZODUS),new TrackedCharacter("Abua", SupportServers.GUNZODUS)));
         List<TrackedCharacter> secondListToPut = new ArrayList<>(List.of(new TrackedCharacter("Jefrey",SupportServers.GUNZODUS),
                 new TrackedCharacter("Jenny", SupportServers.IXODUS)));
+        //when
         cacheWebCrawlerApplication.refreshMapWithDatabaseData(firstListToPut);
+        //then
         assertTrue(fakeWebScrapperMap.containsKey("Jefrey"));
         assertTrue(fakeWebScrapperMap.containsKey("Abua"));
         assertEquals(2,fakeWebScrapperMap.size());
+        //when
         cacheWebCrawlerApplication.refreshMapWithDatabaseData(secondListToPut);
+        //then
         assertTrue(fakeWebScrapperMap.containsKey("Jefrey"));
         assertTrue(fakeWebScrapperMap.containsKey("Jenny"));
         assertEquals(2,fakeWebScrapperMap.size());
     }
     @Test
     void shouldUpdateCharacterInWebMap(){
-
         //Given
         cacheWebCrawlerApplication.getWebScrapperMap()
                 .put("Web",new TrackedCharacterDto("Web",SupportServers.GUNZODUS));

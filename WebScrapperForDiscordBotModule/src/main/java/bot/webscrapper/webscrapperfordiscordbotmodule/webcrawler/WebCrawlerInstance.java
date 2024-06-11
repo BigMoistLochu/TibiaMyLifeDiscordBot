@@ -3,6 +3,7 @@ package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
 import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
+import bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cachewebcrawlerapplication.CacheWebCrawlerApplication;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,6 +15,7 @@ public class WebCrawlerInstance {
 
     private Document doc;
     private Logger logger = Logger.getLogger(WebCrawlerInstance.class.getName());
+    private CacheWebCrawlerApplication cacheApplication = CacheWebCrawlerApplication.getINSTANCE();
 
     private WebCrawlerInstance(String url){
         try {
@@ -38,7 +40,8 @@ public class WebCrawlerInstance {
         try {
             TrackedCharacterDto characterDto = new TrackedCharacterDto(getNickFromWebsite(),getIsOnlineFromWebsite(),getExperienceFromWebsite());
             if(characterDto!=null) {
-
+                TrackedCharacterDto updatedCharacter = cacheApplication.updateCharacterInWebMap(characterDto);
+                if(updatedCharacter!=null) logger.info("Postac o nicku: " + updatedCharacter.getNick() + " zostala zaktualizowana przez scrapper");
             }
         }catch (InvalidScrapingDataException dataException){
             logger.info("Blad przy tworzeniu TrackedCharacterDto: " + dataException.getMessage());

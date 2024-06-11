@@ -25,6 +25,9 @@ public class WebCrawlerRestController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
+    //usun postac z konfiguracji
+
+
 
 
 }

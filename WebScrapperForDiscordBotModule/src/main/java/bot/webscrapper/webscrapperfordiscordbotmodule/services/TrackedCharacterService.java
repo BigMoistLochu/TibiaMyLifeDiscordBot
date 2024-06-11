@@ -18,6 +18,10 @@ public class TrackedCharacterService {
         this.trackedCharacterRepository = trackedCharacterRepository;
     }
 
+    /**
+     * Funkcja tylko dla RefreshMapWithDatabaseDataScheduler, aktualizuje konfiguracje uzytkownikow
+     * CacheMapApplication dla webscrappera
+     */
     public void synchronizeWebCrawlerCacheData(){
         List<TrackedCharacter> trackedCharacters = (List<TrackedCharacter>) trackedCharacterRepository.findAll();
         if(!trackedCharacters.isEmpty()) cacheWebCrawlerApplication.refreshMapWithDatabaseData(trackedCharacters);
