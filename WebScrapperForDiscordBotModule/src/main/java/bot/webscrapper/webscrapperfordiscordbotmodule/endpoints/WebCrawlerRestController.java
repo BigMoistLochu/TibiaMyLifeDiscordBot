@@ -24,6 +24,12 @@ public class WebCrawlerRestController {
         //track add url <<< serverDiscord commend
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
+    @DeleteMapping("/{discord_server}/{tibia_server}/{nick}")
+    public ResponseEntity<TrackedCharacter> deleteCharacterToTrack(@PathVariable String discord_server, @PathVariable String tibia_server, @PathVariable String nick){
+        System.out.println(discord_server+tibia_server+nick);
+        //track add url <<< serverDiscord commend
+        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    }
 
     //usun postac z konfiguracji
 
