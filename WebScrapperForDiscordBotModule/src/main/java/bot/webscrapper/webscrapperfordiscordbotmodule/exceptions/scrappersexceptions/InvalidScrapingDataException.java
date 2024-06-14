@@ -1,4 +1,4 @@
-package bot.webscrapper.webscrapperfordiscordbotmodule.exceptions;
+package bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.scrappersexceptions;
 
 public class InvalidScrapingDataException extends RuntimeException {
 

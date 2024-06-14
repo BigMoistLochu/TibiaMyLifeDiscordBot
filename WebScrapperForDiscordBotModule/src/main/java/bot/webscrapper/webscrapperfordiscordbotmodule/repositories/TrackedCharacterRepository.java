@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TrackedCharacterRepository extends CrudRepository<TrackedCharacter,Long> {
+    TrackedCharacter findFirstByNick(String nick);
+    boolean existsTrackedCharacterByNick(String nick);
 }

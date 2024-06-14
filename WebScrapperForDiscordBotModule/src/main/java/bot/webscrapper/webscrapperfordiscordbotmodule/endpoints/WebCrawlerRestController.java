@@ -1,6 +1,7 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.endpoints;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.entities.TrackedCharacter;
+import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import bot.webscrapper.webscrapperfordiscordbotmodule.services.TrackedCharacterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,20 +19,16 @@ public class WebCrawlerRestController {
         this.trackedCharacterService = trackedCharacterService;
     }
 
-    @PostMapping("/{discord_server}/{tibia_server}/{nick}")
-    public ResponseEntity<TrackedCharacter> addCharacterToTrack(@PathVariable String discord_server, @PathVariable String tibia_server, @PathVariable String nick){
-        System.out.println(discord_server+tibia_server+nick);
-        //track add url <<< serverDiscord commend
-        return ResponseEntity.status(HttpStatus.ACCEPTED).build();
+    @PostMapping("/character/add")
+    public ResponseEntity<TrackedCharacter> addCharacterToTrack(@RequestParam("discord_server") String discordServer,@RequestParam("support_server") String supportServer,@RequestParam("nick") String nick){
+
+        return ResponseEntity.status(HttpStatus.ACCEPTED).body(trackedCharacterService.createTrackedCharacter(discordServer,nick,supportServer));
     }
     @DeleteMapping("/{discord_server}/{tibia_server}/{nick}")
     public ResponseEntity<TrackedCharacter> deleteCharacterToTrack(@PathVariable String discord_server, @PathVariable String tibia_server, @PathVariable String nick){
-        System.out.println(discord_server+tibia_server+nick);
-        //track add url <<< serverDiscord commend
         return ResponseEntity.status(HttpStatus.ACCEPTED).build();
     }
 
-    //usun postac z konfiguracji
 
 
 

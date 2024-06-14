@@ -1,6 +1,6 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos;
 
-import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
+import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.scrappersexceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;

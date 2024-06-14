@@ -1,6 +1,6 @@
 package bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos;
 
-import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.InvalidScrapingDataException;
+import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.scrappersexceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
