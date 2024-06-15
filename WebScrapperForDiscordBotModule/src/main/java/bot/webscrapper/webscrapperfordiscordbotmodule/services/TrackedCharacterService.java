@@ -6,11 +6,10 @@ import bot.webscrapper.webscrapperfordiscordbotmodule.models.entities.TrackedCha
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
 import bot.webscrapper.webscrapperfordiscordbotmodule.repositories.DiscordServerRepository;
 import bot.webscrapper.webscrapperfordiscordbotmodule.repositories.TrackedCharacterRepository;
-import bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cachewebcrawlerapplication.CacheWebCrawlerApplication;
+import bot.webscrapper.webscrapperfordiscordbotmodule.webcrawlerlayer.webcrawler.CacheWebCrawlerApplication;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.management.BadAttributeValueExpException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -18,8 +17,6 @@ import java.util.List;
 public class TrackedCharacterService {
     private final TrackedCharacterRepository trackedCharacterRepository;
     private final DiscordServerRepository discordServerRepository;
-
-    private static final CacheWebCrawlerApplication cacheWebCrawlerApplication = CacheWebCrawlerApplication.getINSTANCE();
     @Autowired
     public TrackedCharacterService(TrackedCharacterRepository trackedCharacterRepository, DiscordServerRepository discordServerRepository){
         this.trackedCharacterRepository = trackedCharacterRepository;
@@ -39,19 +36,7 @@ public class TrackedCharacterService {
         return trackedCharacterRepository.save(newCharacter);
     }
 
-
-    /**
-     * Funkcja tylko dla RefreshMapWithDatabaseDataScheduler, aktualizuje konfiguracje uzytkownikow
-     * CacheMapApplication dla webscrappera
-     */
-    public void synchronizeWebCrawlerCacheData(){
-        List<TrackedCharacter> trackedCharacters = (List<TrackedCharacter>) trackedCharacterRepository.findAll();
-        if(!trackedCharacters.isEmpty()) cacheWebCrawlerApplication.refreshMapWithDatabaseData(trackedCharacters);
+    public List<TrackedCharacter> getListTrackedCharacters(){
+        return (List<TrackedCharacter>) trackedCharacterRepository.findAll();
     }
-
-
-    //funkcja ktora zaciaga TrackedCharacters
-    //oraz Zaciaga mape z Cache,
-    //i zaciaga Liste trackedDto ktore maja taki sam nick jak TrackedCharacters
-    //wybieramy server i sprawdzamy webhooka i na ten weebhook wysylamy liste sledzonych postaci
 }

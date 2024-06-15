@@ -3,16 +3,13 @@ package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cachewebcrawle
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.entities.TrackedCharacter;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
-import bot.webscrapper.webscrapperfordiscordbotmodule.models.mappers.TrackedCharacterDtoMapper;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
+import bot.webscrapper.webscrapperfordiscordbotmodule.webcrawlerlayer.webcrawler.CacheWebCrawlerApplication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.ConcurrentHashMap;
 
 import static org.junit.jupiter.api.Assertions.*;
 

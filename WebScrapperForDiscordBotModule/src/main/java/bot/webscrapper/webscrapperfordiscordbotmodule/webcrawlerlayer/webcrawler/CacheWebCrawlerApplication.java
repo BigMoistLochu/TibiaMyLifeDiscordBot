@@ -1,4 +1,4 @@
-package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cachewebcrawlerapplication;
+package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawlerlayer.webcrawler;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.entities.TrackedCharacter;
@@ -22,17 +22,14 @@ public final class CacheWebCrawlerApplication {
         }
         return INSTANCE;
     }
-    /**
-     * Odświeża mapę danymi z bazy danych.Funkcja jest uzywana tylko dla RefreshMapWithDatabaseDataScheduler
-     *
-     * @param trackedCharacterList Lista postaci do odświeżenia mapy.
-     */
+
     public void refreshMapWithDatabaseData(List<TrackedCharacter> trackedCharacterList){
         List<TrackedCharacterDto> dtoList = TrackedCharacterDtoMapper.mapToDtoList(trackedCharacterList);
 
         dtoList.forEach(trackedCharacterDto -> addCharacterToMap(trackedCharacterDto));
 
         List<String> nickList = new ArrayList<>();
+
         dtoList.forEach(trackedCharacterDto -> {
             if (!nickList.contains(trackedCharacterDto.getNick())) {
                 nickList.add(trackedCharacterDto.getNick());
@@ -42,16 +39,10 @@ public final class CacheWebCrawlerApplication {
         webScrapperMap.forEach((key, trackedCharacterDto) -> {
             if(!nickList.contains(key)){
                 webScrapperMap.remove(key);
-                logger.info("Uzytkownik o nicku: "+trackedCharacterDto.getNick()+" zostal usuniety z cache application");
+                logger.info("Uzytkownik o nicku: " + trackedCharacterDto.getNick() + " zostal usuniety z cache application");
             }
         });
     }
-
-    /**
-     * Dodaje postać do mapy, jeśli nie istnieje, i loguje operację.
-     *
-     * @param trackedCharacterDto DTO postaci do dodania.
-     */
     public void addCharacterToMap(TrackedCharacterDto trackedCharacterDto){
         if(!webScrapperMap.containsKey(trackedCharacterDto.getNick())){
             webScrapperMap.put(trackedCharacterDto.getNick(),trackedCharacterDto);
@@ -66,7 +57,7 @@ public final class CacheWebCrawlerApplication {
         existingCharacterDto.setExperience(scrapedCharacterDto.getExperience());
         return webScrapperMap.put(existingCharacterDto.getNick(),existingCharacterDto);
     }
-    public boolean calculateExperience(int actualExp,int scrappedExp){
+    private boolean calculateExperience(int actualExp,int scrappedExp){
         return Math.abs(actualExp - scrappedExp) > actualExp;
     }
 

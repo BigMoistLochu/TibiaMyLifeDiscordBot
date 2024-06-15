@@ -1,9 +1,8 @@
-package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler;
+package bot.webscrapper.webscrapperfordiscordbotmodule.webcrawlerlayer.webcrawler;
 
 import bot.webscrapper.webscrapperfordiscordbotmodule.exceptions.scrappersexceptions.InvalidScrapingDataException;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.dtos.TrackedCharacterDto;
 import bot.webscrapper.webscrapperfordiscordbotmodule.models.enums.SupportServers;
-import bot.webscrapper.webscrapperfordiscordbotmodule.webcrawler.cachewebcrawlerapplication.CacheWebCrawlerApplication;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
